@@ -109,8 +109,10 @@ internal class BKScanner: BKCBCentralManagerDiscoveryDelegate {
             return
         }
         let RSSI = Int(RSSI)
-        let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
-        remotePeripheral.configuration = configuration
+        let remotePeripheral = configuration.remotePeripheral(withIdentifier: peripheral.identifier, peripheral:
+        peripheral)
+//        let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+//        remotePeripheral.configuration = configuration
         let discovery = BKDiscovery(advertisementData: advertisementData, remotePeripheral: remotePeripheral, RSSI: RSSI)
         if !discoveries.contains(discovery) {
             discoveries.append(discovery)

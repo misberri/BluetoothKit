@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C687E3971B8B496400B702D8"
-               BuildableName = "BluetoothKit.framework"
-               BlueprintName = "BluetoothKit iOS"
-               ReferencedContainer = "container:BluetoothKit.xcodeproj">
+               BlueprintIdentifier = "C67A223F1B8C7D1B00CB74CE"
+               BuildableName = "BKExample.app"
+               BlueprintName = "BKExample (iOS)"
+               ReferencedContainer = "container:Example/BKExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,6 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C67A223F1B8C7D1B00CB74CE"
+            BuildableName = "BKExample.app"
+            BlueprintName = "BKExample (iOS)"
+            ReferencedContainer = "container:Example/BKExample.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

@@ -167,8 +167,10 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
             dataService = CBMutableService(type: _configuration.dataServiceUUID, primary: true)
             let properties: CBCharacteristicProperties = [ .read, .notify, .writeWithoutResponse, .write ]
             let permissions: CBAttributePermissions = [ .readable, .writeable ]
-            characteristicData = CBMutableCharacteristic(type: _configuration.dataServiceCharacteristicUUID, properties: properties, value: nil, permissions: permissions)
-            dataService.characteristics = [ characteristicData ]
+            if let charUUID = _configuration.dataServiceCharacteristicUUID {
+                characteristicData = CBMutableCharacteristic(type: charUUID, properties: properties, value: nil, permissions: permissions)
+                dataService.characteristics = [ characteristicData ]
+            }
             peripheralManager.add(dataService)
         }
     }

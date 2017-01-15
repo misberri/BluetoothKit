@@ -37,7 +37,7 @@ public func == (lhs: BKRemotePeer, rhs: BKRemotePeer) -> Bool {
     return (lhs.identifier == rhs.identifier)
 }
 
-public class BKRemotePeer: Equatable {
+open class BKRemotePeer: Equatable {
 
     /// A unique identifier for the peer, derived from the underlying CBCentral or CBPeripheral object, or set manually.
     public let identifier: UUID
