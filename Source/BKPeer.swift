@@ -90,7 +90,6 @@ public class BKPeer {
         } else {
             return
         }
-
     }
 
     internal func failSendDataTasksForRemotePeer(_ remotePeer: BKRemotePeer) {

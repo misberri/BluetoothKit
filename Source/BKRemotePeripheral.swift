@@ -43,6 +43,12 @@ public protocol BKRemotePeripheralDelegate: class {
      */
     func remotePeripheralIsReady(_ remotePeripheral: BKRemotePeripheral)
 
+    func remotePeripheral(_ remotePeripheral: BKRemotePeripheral, RSSI: NSNumber)
+
+    func remotePeripheral(_ remotePeripheral: BKRemotePeripheral, didUpdateCharacteristic characteristic: CBCharacteristic, error: Error?)
+
+    func remotePeripheral(_ remotePeripheral: BKRemotePeripheral, didWriteCharacteristic characteristic: CBCharacteristic, error: Error?)
+
 }
 
 /**
@@ -160,7 +166,6 @@ extension BKRemotePeripheral: BKCBPeripheralDelegate {
         guard let services = peripheral.services else {
             return
         }
-        print("did discover services \(services)")
         for service in services {
             if service.characteristics != nil {
                 self.peripheral(peripheral, didDiscoverCharacteristicsFor: service, error: nil)
@@ -187,14 +192,57 @@ extension BKRemotePeripheral: BKCBPeripheralDelegate {
             characteristicData = dataCharacteristic
             peripheral.setNotifyValue(true, for: dataCharacteristic) // TODO
         }
+        if let dataCharacteristics = service.characteristics {
+             dataCharacteristics.forEach { (char: CBCharacteristic) in
+                 peripheral.discoverDescriptors(for: char)
+             }
+        }
+
         peripheralDelegate?.remotePeripheralIsReady(self)
     }
 
-    internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard characteristic.uuid == configuration!.dataServiceCharacteristicUUID else {
-            return
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {
+        if let descriptors = characteristic.descriptors {
+            descriptors.forEach { desc in
+                print("Descriptor for \(characteristic) -> \(desc)")
+                if desc.uuid.uuidString == CBUUIDCharacteristicUserDescriptionString {
+                    peripheral.readValue(for: desc)
+                }
+            }
         }
-        handleReceivedData(characteristic.value!)
+        peripheralDelegate?.remotePeripheralIsReady(self)
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        peripheralDelegate?.remotePeripheralIsReady(self)
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
+        peripheralDelegate?.remotePeripheralIsReady(self)
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor descriptor: CBDescriptor, error: Error?) {
+        peripheralDelegate?.remotePeripheralIsReady(self)
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("value for characteristic \(characteristic.value)")
+        peripheralDelegate?.remotePeripheral(self, didWriteCharacteristic: characteristic, error: error)
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
+        peripheralDelegate?.remotePeripheral(self, RSSI: RSSI)
+    }
+
+
+    internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+//        guard characteristic.uuid == configuration!.dataServiceCharacteristicUUID else {
+//            return
+//        }
+        peripheralDelegate?.remotePeripheral(self, didUpdateCharacteristic: characteristic, error: error)
+
+        print("value for characteristic \(characteristic.value)")
+//        handleReceivedData(characteristic.value!)
     }
 
 }
@@ -210,4 +258,18 @@ extension BKRemotePeripheral {
     internal func characteristicsForService(uuid: String) -> [CBCharacteristic]? {
         return serviceCharacteristics[uuid]
     }
+
+    public func characteristicFor(characteristicUuid: UUID) -> CBCharacteristic? {
+        var result: CBCharacteristic? = nil
+        serviceCharacteristics.forEach { (service, characteristics) in
+            characteristics.forEach { (char: CBCharacteristic) in
+                if char.uuid.uuidString == characteristicUuid.uuidString {
+                    result = char
+                }
+            }
+        }
+        return result
+    }
+
+
 }

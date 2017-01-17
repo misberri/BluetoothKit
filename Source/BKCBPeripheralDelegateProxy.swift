@@ -30,6 +30,12 @@ internal protocol BKCBPeripheralDelegate: class {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?)
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?)
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor descriptor: CBDescriptor, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?)
+    func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?)
 }
 
 internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
@@ -64,17 +70,17 @@ internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
-
+        delegate?.peripheral(peripheral, didReadRSSI: RSSI, error: error)
     }
 
     @nonobjc
     internal func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-
+        delegate?.peripheral(peripheral, didWriteValueFor: descriptor, error: error)
     }
 
     @nonobjc
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor descriptor: CBDescriptor, error: Error?) {
-
+        delegate?.peripheral(peripheral, didUpdateValueFor: descriptor, error: error)
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didDiscoverIncludedServicesFor service: CBService, error: Error?) {
@@ -82,15 +88,15 @@ internal class BKCBPeripheralDelegateProxy: NSObject, CBPeripheralDelegate {
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-
+        delegate?.peripheral(peripheral, didWriteValueFor: characteristic, error: error)
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {
-
+        delegate?.peripheral(peripheral, didDiscoverDescriptorsFor: characteristic, error: error)
     }
 
     internal func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-
+        delegate?.peripheral(peripheral, didUpdateNotificationStateFor: characteristic, error: error)
     }
 
 }

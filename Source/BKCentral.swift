@@ -333,6 +333,27 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
         return true
     }
 
+    public func sendData(_ data: Data, toRemotePeer remotePeer: BKRemotePeer, forCharacteristic characteristic: CBCharacteristic) -> Bool {
+        guard let remotePeripheral = remotePeer as? BKRemotePeripheral,
+              let peripheral = remotePeripheral.peripheral//,
+              /*let characteristic = remotePeripheral.characteristicData */else {
+            return false
+        }
+        peripheral.writeValue(data, for: characteristic, type: .withResponse)
+        return true
+    }
+
+    public func readData(forRemotePeer remotePeer: BKRemotePeer, forCharacteristic characteristic: CBCharacteristic)
+                    -> Bool {
+        guard let remotePeripheral = remotePeer as? BKRemotePeripheral,
+              let peripheral = remotePeripheral.peripheral//,
+                /*let characteristic = remotePeripheral.characteristicData */else {
+            return false
+        }
+        peripheral.readValue(for: characteristic)
+        return true
+    }
+
     // MARK: BKCBCentralManagerStateDelegate
 
 
