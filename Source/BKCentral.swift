@@ -298,7 +298,13 @@ public class BKCentral: BKPeer, BKCBCentralManagerStateDelegate, BKConnectionPoo
             var remotePeripherals: [BKRemotePeripheral] = []
 
             for peripheral in peripherals {
-                let remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+                var remotePeripheral: BKRemotePeripheral
+                if let configuration = configuration {
+                    remotePeripheral = configuration.remotePeripheral(withIdentifier: peripheral.identifier, peripheral:
+                    peripheral)
+                } else {
+                    remotePeripheral = BKRemotePeripheral(identifier: peripheral.identifier, peripheral: peripheral)
+                }
                 remotePeripheral.configuration = configuration
                 remotePeripherals.append(remotePeripheral)
             }

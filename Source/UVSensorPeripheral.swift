@@ -7,11 +7,12 @@ import Foundation
 import CoreBluetooth
 
 public enum SensorUUID: String {
+    case uvsensor       = "7083ED73-76C6-61B1-124B-2892843D4417"
+    case control        = "5AA3EC66-0603-AF9C-474B-6F593879BA41"
     case accelerometer  = "AEE330B9-8DE8-A2A3-C54D-53EC3D53E339"
-    case uvsensor       = "5AA3EC66-0603-AF9C-474B-6F593879BA41"
-    case barometer      = "1218579C-E4FA-C6A7-4640-2BFC6919827E"
+//    case barometer      = "1218579C-E4FA-C6A7-4640-2BFC6919827E"
     case battery        = "3853583F-1F6C-DCB2-DC42-37DBAA4AAB0F"
-    case tester         = "89960217-F456-BAB2-C845-CA698303A89E"
+//    case tester         = "89960217-F456-BAB2-C845-CA698303A89E"
 }
 
 public extension SensorUUID {
@@ -25,18 +26,16 @@ public struct BLESettings {
     public static let SnseSnseUVServiceUUID             = UUID(uuidString: "34E4AE92-58C7-F392-A645-9E753446F49C")!
     public static let SnseDeviceInformationServiceUUID  = UUID(uuidString: "EDFEC62E-9910-0BAC-5241-D8BDA6932A2F")!
 
-    public static let SnseCharAccelerometerUUID         = SensorUUID.accelerometer.uuid!
     public static let SnseCharUVSensorUUID              = SensorUUID.uvsensor.uuid!
-    public static let SnseCharBarometerUUID             = SensorUUID.barometer.uuid!
+    public static let SnseCharControlUUID               = SensorUUID.control.uuid!
+    public static let SnseCharAccelerometerUUID         = SensorUUID.accelerometer.uuid!
     public static let SnseCharBatteryUUID               = SensorUUID.battery.uuid!
-    public static let SnseCharTesterUUID                = SensorUUID.tester.uuid!
 
     func senSettingFor(characteristic: CBCharacteristic) -> UUID? {
-        let settings = [BLESettings.SnseCharAccelerometerUUID,
-                        BLESettings.SnseCharUVSensorUUID,
-                        BLESettings.SnseCharBarometerUUID,
-                        BLESettings.SnseCharBarometerUUID,
-                        BLESettings.SnseCharTesterUUID
+        let settings = [BLESettings.SnseCharUVSensorUUID,
+                        BLESettings.SnseCharControlUUID,
+                        BLESettings.SnseCharAccelerometerUUID,
+                        BLESettings.SnseCharBatteryUUID
         ]
         let last = settings.filter {return characteristic.uuidString == $0.uuidString}.last
         return last
@@ -49,14 +48,6 @@ public class UVSensorPeripheral: BKRemotePeripheral {
     override init(identifier: UUID, peripheral: CBPeripheral?) {
         super.init(identifier: identifier, peripheral: peripheral)
     }
-
-
-//    public func write11(characteristic: CBCharacteristic) {
-//        if let peripheral = self.peripheral {
-//            let data = Data(bytes: [0x11])
-//            peripheral.writeValue(data, for: characteristic, type: .withResponse)
-//        }
-//    }
 
     public func read(characteristicUuid: UUID) {
         if let peripheral = self.peripheral,
@@ -71,6 +62,13 @@ public class UVSensorPeripheral: BKRemotePeripheral {
 
     public func readAccelerometer() {
         read(characteristicUuid: BLESettings.SnseCharAccelerometerUUID)
+    }
+
+    public func setNotify(enabled: Bool) {
+        if let peripheral = self.peripheral,
+           let characteristic = characteristicFor(characteristicUuid: characteristicUuid) {
+            peripheral.setNotifyValue(enabled, for: BLESettings.SnseCharUVSensorUUID)
+        }
     }
 
     public func services() -> [CBService]? {

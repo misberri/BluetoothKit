@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		316ED02B1E4835A3006B70F6 /* UVSensorPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F6725A1E4ACE98E8B942D /* UVSensorPeripheral.swift */; };
+		316ED02C1E4835A4006B70F6 /* UVSensorPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F6725A1E4ACE98E8B942D /* UVSensorPeripheral.swift */; };
+		316ED02D1E4835A8006B70F6 /* UVConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F67F02689B433A1CE5717 /* UVConfiguration.swift */; };
+		316ED02E1E4835A9006B70F6 /* UVConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F67F02689B433A1CE5717 /* UVConfiguration.swift */; };
+		316ED02F1E4835AC006B70F6 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F63F672248B12629AE0FE /* extensions.swift */; };
+		316ED0301E4835AD006B70F6 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F63F672248B12629AE0FE /* extensions.swift */; };
 		91575CE01DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
 		91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
 		91575CE21DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91575CDF1DBAA7B800445F38 /* CBLegacyManagerState.swift */; };
@@ -406,10 +412,13 @@
 				C64CDE011BE4C56C00F72549 /* BKConfiguration.swift in Sources */,
 				C64CDE021BE4C56C00F72549 /* BKConnectionAttempt.swift in Sources */,
 				C64CDE031BE4C56C00F72549 /* BKConnectionPool.swift in Sources */,
+				316ED02E1E4835A9006B70F6 /* UVConfiguration.swift in Sources */,
 				C64CDE041BE4C56C00F72549 /* BKContinuousScanner.swift in Sources */,
 				C6B2E37B1CE538FF00D25393 /* BKPeer.swift in Sources */,
 				C64CDE051BE4C56C00F72549 /* BKDiscoveriesChange.swift in Sources */,
+				316ED02C1E4835A4006B70F6 /* UVSensorPeripheral.swift in Sources */,
 				C64CDE061BE4C56C00F72549 /* BKDiscovery.swift in Sources */,
+				316ED0301E4835AD006B70F6 /* extensions.swift in Sources */,
 				C6B2E3731CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
 				C64CDE0B1BE4C56C00F72549 /* BKRemotePeripheral.swift in Sources */,
 				C64CDE0C1BE4C56C00F72549 /* BKScanner.swift in Sources */,
@@ -454,17 +463,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B2E37A1CE538FF00D25393 /* BKPeer.swift in Sources */,
+				316ED02D1E4835A8006B70F6 /* UVConfiguration.swift in Sources */,
 				C6ED86C91BA955DB00C9B70B /* BKAvailability.swift in Sources */,
 				C6B2E3721CE52C7700D25393 /* BKErrorDomain.swift in Sources */,
 				C6ED86CA1BA955DB00C9B70B /* BKCBCentralManagerDelegateProxy.swift in Sources */,
 				91575CE11DBAA7B800445F38 /* CBLegacyManagerState.swift in Sources */,
 				C6ED86CB1BA955DB00C9B70B /* BKCBPeripheralDelegateProxy.swift in Sources */,
+				316ED02F1E4835AC006B70F6 /* extensions.swift in Sources */,
 				C6ED86CC1BA955DB00C9B70B /* BKCBPeripheralManagerDelegateProxy.swift in Sources */,
 				C6ED86CD1BA955DB00C9B70B /* BKCentral.swift in Sources */,
 				C6ED86CE1BA955DB00C9B70B /* BKCentralStateMachine.swift in Sources */,
 				C6ED86CF1BA955DB00C9B70B /* BKConfiguration.swift in Sources */,
 				C6ED86D01BA955DB00C9B70B /* BKConnectionAttempt.swift in Sources */,
 				C6ED86D11BA955DB00C9B70B /* BKConnectionPool.swift in Sources */,
+				316ED02B1E4835A3006B70F6 /* UVSensorPeripheral.swift in Sources */,
 				C6ED86D21BA955DB00C9B70B /* BKContinuousScanner.swift in Sources */,
 				C6ED86D31BA955DB00C9B70B /* BKDiscoveriesChange.swift in Sources */,
 				C6ED86D41BA955DB00C9B70B /* BKDiscovery.swift in Sources */,

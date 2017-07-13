@@ -170,8 +170,9 @@ extension BKRemotePeripheral: BKCBPeripheralDelegate {
             if service.characteristics != nil {
                 self.peripheral(peripheral, didDiscoverCharacteristicsFor: service, error: nil)
             } else {
-                // TODO provide
-                peripheral.discoverCharacteristics(configuration!.characteristicUUIDsForServiceUUID(service.uuid), for: service)
+//                 TODO provide
+//                peripheral.discoverCharacteristics(configuration!.characteristicUUIDsForServiceUUID(service.uuid), for: service)
+                peripheral.discoverCharacteristics(nil, for: service)
             }
         }
     }
