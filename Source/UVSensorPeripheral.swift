@@ -66,8 +66,8 @@ public class UVSensorPeripheral: BKRemotePeripheral {
 
     public func setNotify(enabled: Bool) {
         if let peripheral = self.peripheral,
-           let characteristic = characteristicFor(characteristicUuid: characteristicUuid) {
-            peripheral.setNotifyValue(enabled, for: BLESettings.SnseCharUVSensorUUID)
+           let characteristic = characteristicFor(characteristicUuid: BLESettings.SnseCharUVSensorUUID) {
+            peripheral.setNotifyValue(enabled, for: characteristic)
         }
     }
 
